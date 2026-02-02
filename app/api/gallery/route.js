@@ -30,6 +30,15 @@ export async function POST(request) {
     }
     
     const gallery = getGallery();
+    
+    if (!gallery) {
+      console.error('Failed to read gallery.json');
+      return NextResponse.json(
+        { error: 'Nie można wczytać galerii' },
+        { status: 500 }
+      );
+    }
+    
     const newId = gallery.items.length > 0 
       ? Math.max(...gallery.items.map(item => item.id)) + 1 
       : 1;
@@ -42,13 +51,24 @@ export async function POST(request) {
     };
     
     gallery.items.push(newItem);
-    updateGallery(gallery);
     
+    const success = updateGallery(gallery);
+    
+    if (!success) {
+      console.error('Failed to save gallery.json');
+      return NextResponse.json(
+        { error: 'Nie można zapisać galerii - sprawdź uprawnienia do pliku data/gallery.json' },
+        { status: 500 }
+      );
+    }
+    
+    console.log('Successfully added image:', newItem);
     return NextResponse.json({ success: true, item: newItem });
     
   } catch (error) {
+    console.error('POST /api/gallery error:', error);
     return NextResponse.json(
-      { error: 'Błąd dodawania zdjęcia' },
+      { error: `Błąd dodawania zdjęcia: ${error.message}` },
       { status: 500 }
     );
   }
@@ -68,14 +88,43 @@ export async function DELETE(request) {
     }
     
     const gallery = getGallery();
-    gallery.items = gallery.items.filter(item => item.id !== id);
-    updateGallery(gallery);
     
+    if (!gallery) {
+      console.error('Failed to read gallery.json');
+      return NextResponse.json(
+        { error: 'Nie można wczytać galerii' },
+        { status: 500 }
+      );
+    }
+    
+    const originalLength = gallery.items.length;
+    gallery.items = gallery.items.filter(item => item.id !== id);
+    
+    if (gallery.items.length === originalLength) {
+      console.warn(`Image with id ${id} not found`);
+      return NextResponse.json(
+        { error: 'Zdjęcie nie znalezione' },
+        { status: 404 }
+      );
+    }
+    
+    const success = updateGallery(gallery);
+    
+    if (!success) {
+      console.error('Failed to save gallery.json');
+      return NextResponse.json(
+        { error: 'Nie można zapisać galerii - sprawdź uprawnienia do pliku data/gallery.json' },
+        { status: 500 }
+      );
+    }
+    
+    console.log(`Successfully deleted image id: ${id}`);
     return NextResponse.json({ success: true });
     
   } catch (error) {
+    console.error('DELETE /api/gallery error:', error);
     return NextResponse.json(
-      { error: 'Błąd usuwania zdjęcia' },
+      { error: `Błąd usuwania zdjęcia: ${error.message}` },
       { status: 500 }
     );
   }
