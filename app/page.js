@@ -10,13 +10,13 @@ import { readTemplate, getGallery, getCompanyData } from '@/lib/dataManager';
 // WYBIERZ BRANŻĘ - zmień tutaj na: fotowoltaika, instalator, budowlana, medyczny, fryzjer, warsztat
 const SELECTED_INDUSTRY = 'fotowoltaika';
 
-export default function HomePage() {
+export default async function HomePage() {
   // Wczytaj szablon branżowy
-  const template = readTemplate(SELECTED_INDUSTRY);
+  const template = await readTemplate(SELECTED_INDUSTRY);
   
   // Wczytaj galerię i dane firmy
-  const gallery = getGallery();
-  const company = getCompanyData();
+  const gallery = await getGallery();
+  const company = await getCompanyData();
   
   if (!template) {
     return (

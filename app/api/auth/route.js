@@ -9,7 +9,7 @@ export async function POST(request) {
     const { username, password } = await request.json();
     
     // Sprawdzenie danych logowania
-    const isValid = checkAuth(username, password);
+    const isValid = await checkAuth(username, password);
     
     if (!isValid) {
       return NextResponse.json(

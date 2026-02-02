@@ -17,8 +17,8 @@ export async function POST(request) {
     }
     
     // Pobierz konfigurację
-    const triggers = getTriggers();
-    const botConfig = getBotConfig();
+    const triggers = await getTriggers();
+    const botConfig = await getBotConfig();
     
     // Przetwórz wiadomość
     const response = await handleMessage(message, triggers, botConfig, history || []);

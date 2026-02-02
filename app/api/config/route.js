@@ -21,13 +21,13 @@ export async function GET(request) {
     
     switch(type) {
       case 'company':
-        data = getCompanyData();
+        data = await getCompanyData();
         break;
       case 'bot':
-        data = getBotConfig();
+        data = await getBotConfig();
         break;
       case 'triggers':
-        data = getTriggers();
+        data = await getTriggers();
         break;
       default:
         return NextResponse.json(
@@ -57,13 +57,13 @@ export async function POST(request) {
     
     switch(type) {
       case 'company':
-        success = updateCompanyData(data);
+        success = await updateCompanyData(data);
         break;
       case 'bot':
-        success = updateBotConfig(data);
+        success = await updateBotConfig(data);
         break;
       case 'triggers':
-        success = updateTriggers(data);
+        success = await updateTriggers(data);
         break;
       default:
         return NextResponse.json(

@@ -7,7 +7,7 @@ import { getGallery, updateGallery } from '@/lib/dataManager';
 // GET - pobierz galerię
 export async function GET() {
   try {
-    const gallery = getGallery();
+    const gallery = await getGallery();
     return NextResponse.json(gallery);
   } catch (error) {
     return NextResponse.json(
@@ -29,7 +29,7 @@ export async function POST(request) {
       );
     }
     
-    const gallery = getGallery();
+    const gallery = await getGallery();
     
     if (!gallery) {
       console.error('Failed to read gallery.json');
@@ -52,7 +52,7 @@ export async function POST(request) {
     
     gallery.items.push(newItem);
     
-    const success = updateGallery(gallery);
+    const success = await updateGallery(gallery);
     
     if (!success) {
       console.error('Failed to save gallery.json');
@@ -87,7 +87,7 @@ export async function DELETE(request) {
       );
     }
     
-    const gallery = getGallery();
+    const gallery = await getGallery();
     
     if (!gallery) {
       console.error('Failed to read gallery.json');
@@ -108,7 +108,7 @@ export async function DELETE(request) {
       );
     }
     
-    const success = updateGallery(gallery);
+    const success = await updateGallery(gallery);
     
     if (!success) {
       console.error('Failed to save gallery.json');
