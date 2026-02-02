@@ -2,6 +2,7 @@
 // Root layout - owijka dla całej aplikacji
 
 import './globals.css';
+import ChatWidget from '@/components/ui/ChatWidget';
 
 export const metadata = {
   title: 'Twoja Firma - Profesjonalne usługi',
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="pl">
       <body className="antialiased">
         {children}
+        <ChatWidget />
       </body>
     </html>
   );
