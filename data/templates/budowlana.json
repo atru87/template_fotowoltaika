@@ -1,0 +1,39 @@
+{
+  "industry": "budowlana",
+  "colors": {
+    "primary": "#ef4444",
+    "secondary": "#dc2626",
+    "accent": "#fbbf24"
+  },
+  "hero": {
+    "title": "Budujemy od fundamentów po dach",
+    "subtitle": "Kompleksowe usługi budowlane i remontowe",
+    "cta": "Zobacz realizacje",
+    "backgroundImage": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600"
+  },
+  "services": {
+    "title": "Co robimy",
+    "items": [
+      {
+        "title": "Budowa domów",
+        "description": "Od projektu po odbiór",
+        "icon": "🏠"
+      },
+      {
+        "title": "Remonty",
+        "description": "Wykończenia wnętrz, adaptacje",
+        "icon": "🔨"
+      },
+      {
+        "title": "Elewacje i dachy",
+        "description": "Termomodernizacja, rynny",
+        "icon": "🏗️"
+      }
+    ]
+  },
+  "cta": {
+    "title": "Masz projekt? Mamy ekipę!",
+    "description": "Umów się na bezpłatny kosztorys",
+    "buttonText": "Wyceń projekt"
+  }
+}

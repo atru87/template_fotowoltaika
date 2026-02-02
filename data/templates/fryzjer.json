@@ -1,0 +1,39 @@
+{
+  "industry": "fryzjer",
+  "colors": {
+    "primary": "#8b5cf6",
+    "secondary": "#7c3aed",
+    "accent": "#fbbf24"
+  },
+  "hero": {
+    "title": "Twój styl, nasza pasja",
+    "subtitle": "Profesjonalna stylizacja męskich fryzur",
+    "cta": "Rezerwuj online",
+    "backgroundImage": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1600"
+  },
+  "services": {
+    "title": "Nasze usługi",
+    "items": [
+      {
+        "title": "Strzyżenie męskie",
+        "description": "Klasyka i nowoczesne trendy",
+        "icon": "✂️"
+      },
+      {
+        "title": "Stylizacja brody",
+        "description": "Golenie, przycinanie, pielęgnacja",
+        "icon": "🧔"
+      },
+      {
+        "title": "Masaż głowy",
+        "description": "Relaks i pielęgnacja skóry",
+        "icon": "💆"
+      }
+    ]
+  },
+  "cta": {
+    "title": "Potrzebujesz zmiany?",
+    "description": "Umów się już dziś i poczuj się lepiej",
+    "buttonText": "Umów wizytę"
+  }
+}

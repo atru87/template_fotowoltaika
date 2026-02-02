@@ -1,0 +1,39 @@
+{
+  "industry": "warsztat",
+  "colors": {
+    "primary": "#f97316",
+    "secondary": "#ea580c",
+    "accent": "#fbbf24"
+  },
+  "hero": {
+    "title": "Twój samochód w dobrych rękach",
+    "subtitle": "Kompleksowa obsługa i naprawy wszystkich marek",
+    "cta": "Sprawdź ofertę",
+    "backgroundImage": "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1600"
+  },
+  "services": {
+    "title": "Zakres usług",
+    "items": [
+      {
+        "title": "Mechanika pojazdowa",
+        "description": "Naprawy silnika, zawieszenia, hamulców",
+        "icon": "🔧"
+      },
+      {
+        "title": "Diagnostyka komputerowa",
+        "description": "Odczyt błędów, programowanie",
+        "icon": "💻"
+      },
+      {
+        "title": "Wymiana opon i geometria",
+        "description": "Sezonowa wymiana, wyważanie",
+        "icon": "🚗"
+      }
+    ]
+  },
+  "cta": {
+    "title": "Problem z autem?",
+    "description": "Zadzwoń i umów się na diagnostykę",
+    "buttonText": "Kontakt"
+  }
+}

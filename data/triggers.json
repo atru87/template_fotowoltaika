@@ -1,0 +1,14 @@
+{
+  "triggers": [
+    {
+      "id": 1,
+      "trigger": "godziny otwarcia",
+      "response": "Jesteśmy otwarci od poniedziałku do piątku w godzinach 8:00-16:00."
+    },
+    {
+      "id": 2,
+      "trigger": "cena",
+      "response": "Zapraszamy do kontaktu telefonicznego w celu ustalenia szczegółów wyceny."
+    }
+  ]
+}

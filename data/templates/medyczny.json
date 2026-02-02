@@ -1,0 +1,39 @@
+{
+  "industry": "medyczny",
+  "colors": {
+    "primary": "#06b6d4",
+    "secondary": "#0891b2",
+    "accent": "#f0f9ff"
+  },
+  "hero": {
+    "title": "Zdrowy uśmiech na lata",
+    "subtitle": "Nowoczesna stomatologia bez bólu",
+    "cta": "Umów wizytę",
+    "backgroundImage": "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1600"
+  },
+  "services": {
+    "title": "Zakres zabiegów",
+    "items": [
+      {
+        "title": "Stomatologia zachowawcza",
+        "description": "Leczenie próchnicy, wypełnienia",
+        "icon": "🦷"
+      },
+      {
+        "title": "Protetyka",
+        "description": "Korony, mosty, implanty",
+        "icon": "✨"
+      },
+      {
+        "title": "Wybielanie",
+        "description": "Bezpieczne metody profesjonalne",
+        "icon": "😁"
+      }
+    ]
+  },
+  "cta": {
+    "title": "Nie odkładaj wizyty u dentysty",
+    "description": "Zadzwoń i umów się na konsultację",
+    "buttonText": "Rezerwuj termin"
+  }
+}

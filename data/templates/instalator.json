@@ -1,0 +1,39 @@
+{
+  "industry": "instalator",
+  "colors": {
+    "primary": "#3b82f6",
+    "secondary": "#2563eb",
+    "accent": "#f59e0b"
+  },
+  "hero": {
+    "title": "Solidne instalacje elektryczne i hydrauliczne",
+    "subtitle": "Profesjonalna obsługa - 15 lat doświadczenia",
+    "cta": "Zadzwoń teraz",
+    "backgroundImage": "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=1600"
+  },
+  "services": {
+    "title": "Zakres usług",
+    "items": [
+      {
+        "title": "Instalacje elektryczne",
+        "description": "Montaż, modernizacja, naprawa instalacji",
+        "icon": "⚡"
+      },
+      {
+        "title": "Instalacje hydrauliczne",
+        "description": "Woda, kanalizacja, ogrzewanie",
+        "icon": "🔧"
+      },
+      {
+        "title": "Serwis i awarie",
+        "description": "Szybka reakcja 24/7",
+        "icon": "🚨"
+      }
+    ]
+  },
+  "cta": {
+    "title": "Potrzebujesz pomocy fachowca?",
+    "description": "Dzwoń - dojazd na terenie miasta gratis",
+    "buttonText": "Kontakt"
+  }
+}

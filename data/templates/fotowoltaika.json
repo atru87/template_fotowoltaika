@@ -1,0 +1,39 @@
+{
+  "industry": "fotowoltaika",
+  "colors": {
+    "primary": "#10b981",
+    "secondary": "#059669",
+    "accent": "#fbbf24"
+  },
+  "hero": {
+    "title": "Energia słoneczna dla Twojego domu",
+    "subtitle": "Profesjonalne instalacje fotowoltaiczne z gwarancją oszczędności",
+    "cta": "Sprawdź ofertę",
+    "backgroundImage": "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1600"
+  },
+  "services": {
+    "title": "Nasze usługi",
+    "items": [
+      {
+        "title": "Instalacje fotowoltaiczne",
+        "description": "Kompletne systemy PV dla domów jednorodzinnych",
+        "icon": "☀️"
+      },
+      {
+        "title": "Pompy ciepła",
+        "description": "Ekologiczne ogrzewanie Twojego domu",
+        "icon": "🔥"
+      },
+      {
+        "title": "Magazyny energii",
+        "description": "Uniezależnij się od sieci energetycznej",
+        "icon": "🔋"
+      }
+    ]
+  },
+  "cta": {
+    "title": "Zaoszczędź nawet 90% na rachunkach za prąd",
+    "description": "Skontaktuj się z nami i otrzymaj bezpłatną wycenę",
+    "buttonText": "Bezpłatna wycena"
+  }
+}
