@@ -25,10 +25,12 @@ export default function TemplateSwitcher({ currentTemplate }) {
   };
 
   return (
-    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-6 py-3 rounded-full shadow-2xl backdrop-blur-xl"
+    <div className="fixed top-6 left-1/2 z-50 flex items-center gap-2 px-6 py-3 rounded-full shadow-2xl backdrop-blur-xl"
          style={{ 
            background: 'rgba(255, 255, 255, 0.95)',
-           border: '1px solid rgba(0, 0, 0, 0.1)'
+           border: '1px solid rgba(0, 0, 0, 0.1)',
+           transform: 'translateX(-50%) translateZ(0)',
+           willChange: 'transform'
          }}>
       {templates.map((template) => (
         <button
