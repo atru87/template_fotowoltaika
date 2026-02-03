@@ -1,26 +1,26 @@
 {
   "industry": "fotowoltaika",
-  "layout": "classic",
+  "layout": "eco",
   "colors": {
-    "primary": "#10b981",
-    "secondary": "#059669",
-    "accent": "#fbbf24"
+    "primary": "#84cc16",
+    "secondary": "#65a30d",
+    "accent": "#eab308"
   },
   "theme": {
-    "background": "#0a0f1a",
-    "backgroundGradient": "linear-gradient(160deg, #0a0f1a 0%, #0d2818 50%, #0d1117 100%)",
-    "cardBackground": "rgba(16, 185, 129, 0.08)",
-    "textPrimary": "#ffffff",
-    "textSecondary": "#d1d5db",
-    "glassBackground": "rgba(16, 185, 129, 0.06)",
-    "glowColor": "rgba(16, 185, 129, 0.13)",
-    "glowColorSecondary": "rgba(251, 191, 36, 0.09)"
+    "background": "#fafaf9",
+    "backgroundGradient": "linear-gradient(160deg, #fafaf9 0%, #ecfccb 40%, #fef3c7 70%, #fafaf9 100%)",
+    "cardBackground": "CARD_#fafaf9",
+    "textPrimary": "#111827",
+    "textSecondary": "#374151",
+    "glassBackground": "GLASS_#fafaf9",
+    "glowColor": "rgba(132, 204, 22, 0.12)",
+    "glowColorSecondary": "rgba(234, 179, 8, 0.08)"
   },
   "hero": {
     "title": "Energia słoneczna dla Twojego domu",
     "subtitle": "Profesjonalne instalacje fotowoltaiczne z gwarancją oszczędności",
     "cta": "Sprawdź ofertę",
-    "backgroundImage": "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1600"
+    "backgroundImage": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1600"
   },
   "services": {
     "title": "Nasze usługi",
@@ -62,7 +62,7 @@
         "icon": "⚡"
       }
     ],
-    "image": "https://images.unsplash.com/photo-1545209463-e2825498edbf?w=1600"
+    "image": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1600"
   },
   "cta": {
     "title": "Zaoszczędź nawet 90% na rachunkach za prąd",

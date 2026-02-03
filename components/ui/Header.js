@@ -1,9 +1,12 @@
 'use client';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 
-export default function Header({ companyName }) {
+export default function Header({ companyName, theme }) {
   const [scrolled, setScrolled] = useState(false);
+  const searchParams = useSearchParams();
+  const templateId = searchParams?.get('template') || 'fotowoltaika';
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 48);
@@ -12,26 +15,48 @@ export default function Header({ companyName }) {
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
+  const isLightTheme = theme?.textPrimary === '#111827';
+
   return (
     <header
       className="sticky top-0 z-40 transition-all duration-300"
       style={{
         background: scrolled
-          ? 'rgba(10,15,26,0.75)'
+          ? isLightTheme 
+            ? 'rgba(255,255,255,0.95)' 
+            : 'rgba(10,15,26,0.75)'
           : 'transparent',
         backdropFilter: scrolled ? 'blur(14px)' : 'none',
         WebkitBackdropFilter: scrolled ? 'blur(14px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.08)' : '1px solid transparent',
+        borderBottom: scrolled 
+          ? isLightTheme 
+            ? '1px solid rgba(0,0,0,0.08)' 
+            : '1px solid rgba(255,255,255,0.08)' 
+          : '1px solid transparent',
       }}
     >
       <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <Link href="/" className="text-xl font-bold text-white tracking-tight">
+        <Link href={`/?template=${templateId}`} className={`text-xl font-bold tracking-tight ${
+          isLightTheme ? 'text-gray-900' : 'text-white'
+        }`}>
           {companyName || 'Twoja Firma'}
         </Link>
 
         <div className="flex gap-6">
-          <Link href="/"        className="text-gray-300 hover:text-white transition text-sm font-medium">Strona główna</Link>
-          <Link href="/kontakt" className="text-gray-300 hover:text-white transition text-sm font-medium">Kontakt</Link>
+          <Link href={`/?template=${templateId}`} className={`transition text-sm font-medium ${
+            isLightTheme 
+              ? 'text-gray-700 hover:text-gray-900' 
+              : 'text-gray-300 hover:text-white'
+          }`}>
+            Strona główna
+          </Link>
+          <Link href={`/kontakt?template=${templateId}`} className={`transition text-sm font-medium ${
+            isLightTheme 
+              ? 'text-gray-700 hover:text-gray-900' 
+              : 'text-gray-300 hover:text-white'
+          }`}>
+            Kontakt
+          </Link>
         </div>
       </nav>
     </header>

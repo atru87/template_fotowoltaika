@@ -1,6 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Header from '@/components/ui/Header';
+import Footer from '@/components/ui/Footer';
+import ThemeStyles from '@/components/ui/ThemeStyles';
 
 export default function KontaktPage() {
   const [form, setForm]     = useState({ name: '', email: '', phone: '', message: '' });
@@ -8,17 +11,25 @@ export default function KontaktPage() {
   const [errMsg, setErrMsg] = useState('');
   const [theme, setTheme] = useState(null);
   const [colors, setColors] = useState(null);
+  const [company, setCompany] = useState(null);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    // Load theme from API
-    fetch('/api/config?type=theme')
-      .then(r => r.json())
-      .then(data => {
-        setTheme(data.theme || {});
-        setColors(data.colors || {});
+    // Get template from URL or use default
+    const templateId = searchParams?.get('template') || 'fotowoltaika';
+    
+    // Load template data
+    Promise.all([
+      fetch(`/data/templates/${templateId}.json`).then(r => r.json()),
+      fetch('/api/config?type=company').then(r => r.json())
+    ])
+      .then(([templateData, companyData]) => {
+        setTheme(templateData.theme || {});
+        setColors(templateData.colors || {});
+        setCompany(companyData);
       })
       .catch(console.error);
-  }, []);
+  }, [searchParams]);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -51,23 +62,13 @@ export default function KontaktPage() {
     isLightTheme 
       ? 'bg-white border border-gray-300 text-gray-900 placeholder-gray-500' 
       : 'bg-white/5 border border-white/10 text-white placeholder-gray-500'
-  } focus:outline-none focus:border-${primaryColor} transition text-sm`;
+  } focus:outline-none transition text-sm`;
 
   return (
     <>
-      {theme && (
-        <style jsx global>{`
-          body {
-            background: ${theme.background || '#0a0f1a'};
-            color: ${theme.textPrimary || '#ffffff'};
-          }
-          .site-bg {
-            background: ${theme.backgroundGradient || 'linear-gradient(160deg, #0a0f1a 0%, #111827 50%, #0d1117 100%)'};
-          }
-        `}</style>
-      )}
+      {theme && colors && <ThemeStyles theme={theme} colors={colors} />}
       
-      <Header theme={theme} />
+      <Header companyName={company?.name} theme={theme} />
       <main className="min-h-screen flex items-start justify-center py-24 px-4">
         <div className="w-full max-w-2xl">
           <div className="text-center mb-10">
@@ -80,7 +81,11 @@ export default function KontaktPage() {
           </div>
 
           {status === 'ok' ? (
-            <div className="glass p-10 text-center">
+            <div className={`p-10 text-center rounded-2xl ${
+              isLightTheme 
+                ? 'bg-white border border-gray-200' 
+                : 'bg-white/5 border border-white/10'
+            }`}>
               <div className="text-5xl mb-5">✉️</div>
               <h2 className={`text-2xl font-bold mb-2 ${isLightTheme ? 'text-gray-900' : 'text-white'}`}>
                 Wiadomość wysłana!
@@ -97,7 +102,11 @@ export default function KontaktPage() {
               </button>
             </div>
           ) : (
-            <div className="glass p-7 md:p-10">
+            <div className={`p-7 md:p-10 rounded-2xl ${
+              isLightTheme 
+                ? 'bg-white border border-gray-200' 
+                : 'bg-white/5 border border-white/10'
+            }`}>
               <form onSubmit={submit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
@@ -151,6 +160,7 @@ export default function KontaktPage() {
           )}
         </div>
       </main>
+      <Footer company={company} theme={theme} />
     </>
   );
 }

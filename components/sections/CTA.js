@@ -1,8 +1,12 @@
 'use client';
 import useReveal from '@/components/ui/useReveal';
+import { useSearchParams } from 'next/navigation';
 
 export default function CTA({ data, colors, company, theme }) {
   const ref = useReveal(0.15);
+  const searchParams = useSearchParams();
+  const templateId = searchParams?.get('template') || 'fotowoltaika';
+  
   if (!data) return null;
 
   const primary   = colors?.primary   || '#10b981';
@@ -49,7 +53,7 @@ export default function CTA({ data, colors, company, theme }) {
               {data.buttonText}
             </a>
             <a
-              href="/kontakt"
+              href={`/kontakt?template=${templateId}`}
               className={`inline-block px-8 py-4 rounded-xl text-lg font-semibold transition ${
                 isLightTheme 
                   ? 'bg-white border-2 border-gray-300 text-gray-900 hover:border-gray-400' 
