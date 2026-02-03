@@ -1,90 +1,52 @@
-// app/api/config/route.js
-// Unified endpoint do zarządzania konfiguracją
-
 import { NextResponse } from 'next/server';
-import { 
-  getCompanyData, 
-  updateCompanyData,
-  getBotConfig,
-  updateBotConfig,
-  getTriggers,
-  updateTriggers
+import {
+  getCompanyData,  updateCompanyData,
+  getBotConfig,    updateBotConfig,
+  getTriggers,     updateTriggers,
+  readJSON,        writeJSON,
 } from '@/lib/dataManager';
 
-// GET - pobierz konfigurację
 export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const type = searchParams.get('type'); // 'company', 'bot', 'triggers'
-  
+  const type = new URL(request.url).searchParams.get('type');
   try {
     let data;
-    
-    switch(type) {
-      case 'company':
-        data = await getCompanyData();
-        break;
-      case 'bot':
-        data = await getBotConfig();
-        break;
-      case 'triggers':
-        data = await getTriggers();
+    switch (type) {
+      case 'company':     data = await getCompanyData();                          break;
+      case 'bot':         data = await getBotConfig();                            break;
+      case 'triggers':    data = await getTriggers();                             break;
+      case 'messages':    data = await readJSON('messages.json') || { items: [] }; break;
+      case 'smtp':
+      case 'smtp-check':
+        data = await readJSON('smtp.json') || { host: '', port: '587', user: '', pass: '', configured: false };
         break;
       default:
-        return NextResponse.json(
-          { error: 'Nieprawidłowy typ konfiguracji' },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: 'Nieprawidłowy typ' }, { status: 400 });
     }
-    
     return NextResponse.json(data);
-    
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Błąd pobierania danych' },
-      { status: 500 }
-    );
+  } catch (e) {
+    console.error('GET /api/config', e);
+    return NextResponse.json({ error: 'Błąd pobierania' }, { status: 500 });
   }
 }
 
-// POST - zaktualizuj konfigurację
 export async function POST(request) {
   try {
     const { type, data } = await request.json();
-    
-    // W produkcji: sprawdź token autoryzacji
-    
-    let success;
-    
-    switch(type) {
-      case 'company':
-        success = await updateCompanyData(data);
-        break;
-      case 'bot':
-        success = await updateBotConfig(data);
-        break;
-      case 'triggers':
-        success = await updateTriggers(data);
-        break;
+    let ok;
+    switch (type) {
+      case 'company':  ok = await updateCompanyData(data); break;
+      case 'bot':      ok = await updateBotConfig(data);   break;
+      case 'triggers': ok = await updateTriggers(data);    break;
+      case 'messages': ok = await writeJSON('messages.json', data); break;
+      case 'smtp':     ok = await writeJSON('smtp.json', data); break;
       default:
-        return NextResponse.json(
-          { error: 'Nieprawidłowy typ konfiguracji' },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: 'Nieprawidłowy typ' }, { status: 400 });
     }
-    
-    if (!success) {
-      return NextResponse.json(
-        { error: 'Błąd zapisu danych' },
-        { status: 500 }
-      );
-    }
-    
-    return NextResponse.json({ success: true });
-    
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Błąd aktualizacji danych' },
-      { status: 500 }
-    );
+    return ok
+      ? NextResponse.json({ success: true })
+      : NextResponse.json({ error: 'Błąd zapisu' }, { status: 500 });
+  } catch (e) {
+    console.error('POST /api/config', e);
+    return NextResponse.json({ error: 'Błąd aktualizacji' }, { status: 500 });
   }
 }

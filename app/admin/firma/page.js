@@ -62,7 +62,7 @@ export default function CompanyAdmin() {
         </h1>
         
         <div className="bg-white p-6 rounded-lg shadow-md max-w-2xl">
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900">
             Edytuj informacje kontaktowe
           </h2>
           
@@ -76,7 +76,7 @@ export default function CompanyAdmin() {
                 type="text"
                 value={company.name}
                 onChange={(e) => setCompany({...company, name: e.target.value})}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-gray-900 bg-white"
                 required
               />
             </div>
@@ -90,7 +90,7 @@ export default function CompanyAdmin() {
                 value={company.phone}
                 onChange={(e) => setCompany({...company, phone: e.target.value})}
                 placeholder="+48 123 456 789"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-gray-900 bg-white"
                 required
               />
             </div>
@@ -104,7 +104,7 @@ export default function CompanyAdmin() {
                 value={company.email}
                 onChange={(e) => setCompany({...company, email: e.target.value})}
                 placeholder="kontakt@firma.pl"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-gray-900 bg-white"
                 required
               />
             </div>
@@ -118,7 +118,7 @@ export default function CompanyAdmin() {
                 value={company.address}
                 onChange={(e) => setCompany({...company, address: e.target.value})}
                 placeholder="ul. Przykładowa 1, 00-000 Warszawa"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-gray-900 bg-white"
                 required
               />
             </div>
@@ -132,7 +132,7 @@ export default function CompanyAdmin() {
                 value={company.hours}
                 onChange={(e) => setCompany({...company, hours: e.target.value})}
                 placeholder="Pon-Pt: 8:00-16:00"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-gray-900 bg-white"
                 required
               />
             </div>

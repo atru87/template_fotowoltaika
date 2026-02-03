@@ -78,7 +78,7 @@ export default function GalleryAdmin() {
         
         {/* Formularz dodawania */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-          <h2 className="text-2xl font-semibold mb-4">Dodaj nowe zdjęcie</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900">Dodaj nowe zdjęcie</h2>
           
           <form onSubmit={handleAdd} className="space-y-4">
             <div>
@@ -90,7 +90,7 @@ export default function GalleryAdmin() {
                 value={newImage.url}
                 onChange={(e) => setNewImage({...newImage, url: e.target.value})}
                 placeholder="https://example.com/image.jpg"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-gray-900 bg-white"
                 required
               />
               <p className="text-sm text-gray-500 mt-1">
@@ -107,7 +107,7 @@ export default function GalleryAdmin() {
                 value={newImage.alt}
                 onChange={(e) => setNewImage({...newImage, alt: e.target.value})}
                 placeholder="Realizacja dla klienta X"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-gray-900 bg-white"
                 required
               />
             </div>
@@ -124,7 +124,7 @@ export default function GalleryAdmin() {
         
         {/* Lista zdjęć */}
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-2xl font-semibold mb-4">Aktualne zdjęcia</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900">Aktualne zdjęcia</h2>
           
           {gallery.length === 0 ? (
             <p className="text-gray-600">Brak zdjęć w galerii</p>

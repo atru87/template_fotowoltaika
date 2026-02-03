@@ -122,22 +122,22 @@ export default function BotAdmin() {
         
         {/* Konfiguracja AI */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-          <h2 className="text-2xl font-semibold mb-4">Ustawienia AI</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900">Ustawienia AI</h2>
           
           <form onSubmit={handleSaveBot} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                API Key (Anthropic Claude)
+                API Key (Groq)
               </label>
               <input
                 type="password"
                 value={botConfig.apiKey}
                 onChange={(e) => setBotConfig({...botConfig, apiKey: e.target.value})}
-                placeholder="sk-ant-..."
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                placeholder="gsk_..."
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-gray-900 bg-white"
               />
               <p className="text-sm text-gray-500 mt-1">
-                Wklej swój klucz API z console.anthropic.com
+                Wklej klucz API z <a href="https://console.groq.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">console.groq.com</a>
               </p>
             </div>
             
@@ -149,7 +149,7 @@ export default function BotAdmin() {
                 value={botConfig.systemPrompt}
                 onChange={(e) => setBotConfig({...botConfig, systemPrompt: e.target.value})}
                 rows={4}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-gray-900 bg-white"
                 placeholder="Jesteś pomocnym asystentem firmy..."
               />
               <p className="text-sm text-gray-500 mt-1">
@@ -169,7 +169,7 @@ export default function BotAdmin() {
         
         {/* Triggery */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-          <h2 className="text-2xl font-semibold mb-4">Dodaj nowy trigger</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900">Dodaj nowy trigger</h2>
           
           <form onSubmit={handleAddTrigger} className="space-y-4">
             <div>
@@ -181,7 +181,7 @@ export default function BotAdmin() {
                 value={newTrigger.trigger}
                 onChange={(e) => setNewTrigger({...newTrigger, trigger: e.target.value})}
                 placeholder="np. cena, godziny otwarcia"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-gray-900 bg-white"
                 required
               />
             </div>
@@ -194,7 +194,7 @@ export default function BotAdmin() {
                 value={newTrigger.response}
                 onChange={(e) => setNewTrigger({...newTrigger, response: e.target.value})}
                 rows={3}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-gray-900 bg-white"
                 placeholder="Automatyczna odpowiedź, która zostanie wysłana"
                 required
               />

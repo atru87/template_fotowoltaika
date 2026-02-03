@@ -1,6 +1,3 @@
-/* styles/globals.css */
-/* Podstawowe style Tailwind + custom */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,8 +10,116 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #0a0f1a;
+  color: #fff;
 }
 
-* {
-  box-sizing: border-box;
+* { box-sizing: border-box; }
+
+/* ─── Animated background ─── */
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(160deg, #0a0f1a 0%, #111827 50%, #0d1117 100%);
+}
+
+/* Soft gradient blobs */
+.site-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 15% 25%, rgba(16,185,129,0.13) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 45% at 85% 65%, rgba(16,185,129,0.09) 0%, transparent 70%),
+    radial-gradient(ellipse 35% 40% at 55% 5%,  rgba(251,191,36,0.07) 0%, transparent 70%);
+  animation: blobPulse 9s ease-in-out infinite alternate;
+}
+
+@keyframes blobPulse {
+  from { opacity: 0.75; transform: scale(1); }
+  to   { opacity: 1;    transform: scale(1.06); }
+}
+
+/* Moving grid */
+.site-bg-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(16,185,129,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16,185,129,0.055) 1px, transparent 1px);
+  background-size: 64px 64px;
+  animation: gridMove 25s linear infinite;
+}
+
+@keyframes gridMove {
+  from { background-position: 0 0; }
+  to   { background-position: 64px 64px; }
+}
+
+/* Particles */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(16,185,129,0.45);
+  box-shadow: 0 0 5px rgba(16,185,129,0.3);
+  animation: particleRise linear infinite;
+  pointer-events: none;
+}
+.particle.gold {
+  background: rgba(251,191,36,0.5);
+  box-shadow: 0 0 5px rgba(251,191,36,0.35);
+}
+
+@keyframes particleRise {
+  0%   { transform: translateY(0) translateX(0); opacity: 0; }
+  8%   { opacity: 1; }
+  85%  { opacity: 0.7; }
+  100% { transform: translateY(-110vh) translateX(40px); opacity: 0; }
+}
+
+/* ─── Page content sits above bg ─── */
+.page-wrap {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+/* ─── Glass utilities ─── */
+.glass {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+}
+
+.glass-sm {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+}
+
+/* ─── Gradient text ─── */
+.grad-text {
+  background: linear-gradient(135deg, #34d399, #10b981, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Scroll-reveal ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }

@@ -1,19 +1,25 @@
-// app/layout.js
-// Root layout - owijka dla całej aplikacji
-
 import './globals.css';
-import ChatWidget from '@/components/ui/ChatWidget';
+import AnimatedBg   from '@/components/ui/AnimatedBg';
+import ChatWidget   from '@/components/ui/ChatWidget';
 
 export const metadata = {
-  title: 'Twoja Firma - Profesjonalne usługi',
+  title: 'Twoja Firma – Profesjonalne usługi',
   description: 'Wizytówka firmy',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="pl">
-      <body className="antialiased">
-        {children}
+      <body>
+        {/* fixed animated layer */}
+        <AnimatedBg />
+        <div className="site-bg-grid" />
+
+        {/* scrollable content */}
+        <div className="page-wrap">
+          {children}
+        </div>
+
         <ChatWidget />
       </body>
     </html>
