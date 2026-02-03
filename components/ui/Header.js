@@ -54,6 +54,13 @@ export default function Header({ companyName, theme, templateId = 'fotowoltaika'
           }`}>
             Kontakt
           </Link>
+		  <Link href="/admin" className={`transition text-sm font-medium ${
+		  isLightTheme 
+			? 'text-gray-700 hover:text-gray-900' 
+			: 'text-gray-300 hover:text-white'
+		}`}>
+  Admin
+</Link>
         </div>
       </nav>
     </header>
