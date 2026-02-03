@@ -21,21 +21,22 @@ export async function GET(request) {
         break;
       case 'theme':
         // Return current theme based on SELECTED_INDUSTRY
-        // In production, this would read from a config file
-        const fs = require('fs');
-        const path = require('path');
         const SELECTED_INDUSTRY = 'fotowoltaika'; // TODO: make this configurable
-        const templatePath = path.join(process.cwd(), 'data', 'templates', `${SELECTED_INDUSTRY}.json`);
-        const templateData = JSON.parse(fs.readFileSync(templatePath, 'utf-8'));
-        data = { theme: templateData.theme, colors: templateData.colors };
+        const templateData = await readJSON(`templates/${SELECTED_INDUSTRY}.json`);
+        if (templateData) {
+          data = { theme: templateData.theme, colors: templateData.colors };
+        } else {
+          return NextResponse.json({ error: 'Szablon nie znaleziony' }, { status: 404 });
+        }
         break;
       default:
         return NextResponse.json({ error: 'Nieprawidłowy typ' }, { status: 400 });
     }
     return NextResponse.json(data);
   } catch (e) {
-    console.error('GET /api/config', e);
-    return NextResponse.json({ error: 'Błąd pobierania' }, { status: 500 });
+    console.error('GET /api/config error:', e);
+    console.error('Error details:', e.message);
+    return NextResponse.json({ error: `Błąd pobierania: ${e.message}` }, { status: 500 });
   }
 }
 
@@ -56,7 +57,8 @@ export async function POST(request) {
       ? NextResponse.json({ success: true })
       : NextResponse.json({ error: 'Błąd zapisu' }, { status: 500 });
   } catch (e) {
-    console.error('POST /api/config', e);
-    return NextResponse.json({ error: 'Błąd aktualizacji' }, { status: 500 });
+    console.error('POST /api/config error:', e);
+    console.error('Error details:', e.message);
+    return NextResponse.json({ error: `Błąd aktualizacji: ${e.message}` }, { status: 500 });
   }
 }

@@ -39,7 +39,20 @@ export async function GET(request) {
       }
       
       // Sprawdź konkretne dane w KV
-      const dataKeys = ['gallery', 'company', 'bot-config', 'triggers', 'auth'];
+      const dataKeys = [
+        'gallery', 
+        'company', 
+        'bot-config', 
+        'triggers', 
+        'auth',
+        'messages',
+        'smtp',
+        'templates:fotowoltaika',
+        'templates:fotowoltaika-v2',
+        'templates:fotowoltaika-v3',
+        'templates:fotowoltaika-v4',
+        'templates:fotowoltaika-v5',
+      ];
       diagnostics.kvData = {};
       
       for (const key of dataKeys) {
@@ -56,7 +69,20 @@ export async function GET(request) {
     
     // Sprawdź pliki w /data
     diagnostics.dataFiles = {};
-    const dataFiles = ['gallery.json', 'company.json', 'bot-config.json', 'triggers.json', 'auth.json'];
+    const dataFiles = [
+      'gallery.json', 
+      'company.json', 
+      'bot-config.json', 
+      'triggers.json', 
+      'auth.json',
+      'messages.json',
+      'smtp.json',
+      'templates/fotowoltaika.json',
+      'templates/fotowoltaika-v2.json',
+      'templates/fotowoltaika-v3.json',
+      'templates/fotowoltaika-v4.json',
+      'templates/fotowoltaika-v5.json',
+    ];
     
     for (const filename of dataFiles) {
       const filePath = path.join(DATA_DIR, filename);
@@ -85,7 +111,8 @@ export async function GET(request) {
       
       for (const filename of dataFiles) {
         const filePath = path.join(DATA_DIR, filename);
-        const key = filename.replace('.json', '');
+        // Użyj tej samej konwersji co w dataManager
+        const key = filename.replace('.json', '').replace(/\//g, ':');
         
         try {
           if (fs.existsSync(filePath)) {
