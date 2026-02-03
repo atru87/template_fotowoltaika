@@ -5,6 +5,16 @@
     "secondary": "#2563eb",
     "accent": "#f59e0b"
   },
+  "theme": {
+    "background": "#0a0f1a",
+    "backgroundGradient": "linear-gradient(160deg, #0a0f1a 0%, #0f1829 50%, #0d1117 100%)",
+    "cardBackground": "rgba(59, 130, 246, 0.08)",
+    "textPrimary": "#ffffff",
+    "textSecondary": "#d1d5db",
+    "glassBackground": "rgba(59, 130, 246, 0.06)",
+    "glowColor": "rgba(59, 130, 246, 0.15)",
+    "glowColorSecondary": "rgba(245, 158, 11, 0.1)"
+  },
   "hero": {
     "title": "Solidne instalacje elektryczne i hydrauliczne",
     "subtitle": "Profesjonalna obsługa - 15 lat doświadczenia",
@@ -30,6 +40,28 @@
         "icon": "🚨"
       }
     ]
+  },
+  "process": {
+    "title": "Jak działamy?",
+    "subtitle": "Współpraca krok po kroku - prosty proces realizacji",
+    "steps": [
+      {
+        "title": "Kontakt i Wycena",
+        "description": "Skontaktuj się z nami telefonicznie lub przez formularz. Przyjedziemy, ocenimy zakres prac i przedstawimy bezpłatną wycenę.",
+        "icon": "📞"
+      },
+      {
+        "title": "Ustalenie Terminu",
+        "description": "Po akceptacji wyceny ustalamy dogodny dla Ciebie termin realizacji. Dostarczamy niezbędne materiały i narzędzia.",
+        "icon": "📅"
+      },
+      {
+        "title": "Realizacja i Odbiór",
+        "description": "Wykonujemy prace zgodnie z sztuką i przepisami. Po zakończeniu odbieramy wspólnie instalację i przekazujemy dokumentację.",
+        "icon": "✅"
+      }
+    ],
+    "image": "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1600"
   },
   "cta": {
     "title": "Potrzebujesz pomocy fachowca?",

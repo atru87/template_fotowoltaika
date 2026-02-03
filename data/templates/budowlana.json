@@ -5,6 +5,16 @@
     "secondary": "#dc2626",
     "accent": "#fbbf24"
   },
+  "theme": {
+    "background": "#1a0f0a",
+    "backgroundGradient": "linear-gradient(160deg, #1a0f0a 0%, #2d1810 50%, #1a0a0a 100%)",
+    "cardBackground": "rgba(239, 68, 68, 0.08)",
+    "textPrimary": "#ffffff",
+    "textSecondary": "#d1d5db",
+    "glassBackground": "rgba(239, 68, 68, 0.06)",
+    "glowColor": "rgba(239, 68, 68, 0.15)",
+    "glowColorSecondary": "rgba(251, 191, 36, 0.1)"
+  },
   "hero": {
     "title": "Budujemy od fundamentów po dach",
     "subtitle": "Kompleksowe usługi budowlane i remontowe",
@@ -30,6 +40,28 @@
         "icon": "🏗️"
       }
     ]
+  },
+  "process": {
+    "title": "Jak działamy?",
+    "subtitle": "Profesjonalna realizacja w każdym etapie",
+    "steps": [
+      {
+        "title": "Wycena i Projekt",
+        "description": "Przyjedziemy na miejsce, omówimy szczegóły i przygotujemy szczegółowy kosztorys. Pomożemy również w przygotowaniu dokumentacji projektowej.",
+        "icon": "📐"
+      },
+      {
+        "title": "Harmonogram Prac",
+        "description": "Ustalamy terminy rozpoczęcia i zakończenia każdego etapu. Dbamy o terminowość i stały kontakt z inwestorem.",
+        "icon": "📅"
+      },
+      {
+        "title": "Realizacja i Nadzór",
+        "description": "Wykonujemy prace zgodnie z projektem i sztuką budowlaną. Zapewniamy regularny nadzór i dokumentację fotograficzną postępów.",
+        "icon": "🏗️"
+      }
+    ],
+    "image": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1600"
   },
   "cta": {
     "title": "Masz projekt? Mamy ekipę!",

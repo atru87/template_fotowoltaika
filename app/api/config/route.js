@@ -19,6 +19,16 @@ export async function GET(request) {
       case 'smtp-check':
         data = await readJSON('smtp.json') || { host: '', port: '587', user: '', pass: '', configured: false };
         break;
+      case 'theme':
+        // Return current theme based on SELECTED_INDUSTRY
+        // In production, this would read from a config file
+        const fs = require('fs');
+        const path = require('path');
+        const SELECTED_INDUSTRY = 'fotowoltaika'; // TODO: make this configurable
+        const templatePath = path.join(process.cwd(), 'data', 'templates', `${SELECTED_INDUSTRY}.json`);
+        const templateData = JSON.parse(fs.readFileSync(templatePath, 'utf-8'));
+        data = { theme: templateData.theme, colors: templateData.colors };
+        break;
       default:
         return NextResponse.json({ error: 'Nieprawidłowy typ' }, { status: 400 });
     }

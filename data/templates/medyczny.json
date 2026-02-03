@@ -5,6 +5,16 @@
     "secondary": "#0891b2",
     "accent": "#f0f9ff"
   },
+  "theme": {
+    "background": "#ffffff",
+    "backgroundGradient": "linear-gradient(160deg, #ffffff 0%, #f0f9ff 50%, #e0f2fe 100%)",
+    "cardBackground": "rgba(6, 182, 212, 0.05)",
+    "textPrimary": "#111827",
+    "textSecondary": "#4b5563",
+    "glassBackground": "rgba(255, 255, 255, 0.7)",
+    "glowColor": "rgba(6, 182, 212, 0.1)",
+    "glowColorSecondary": "rgba(6, 182, 212, 0.05)"
+  },
   "hero": {
     "title": "Zdrowy uśmiech na lata",
     "subtitle": "Nowoczesna stomatologia bez bólu",
@@ -30,6 +40,28 @@
         "icon": "😁"
       }
     ]
+  },
+  "process": {
+    "title": "Jak przebiega wizyta?",
+    "subtitle": "Komfortowa opieka na każdym etapie",
+    "steps": [
+      {
+        "title": "Konsultacja",
+        "description": "Poznajemy problem i wykonujemy dokładne badanie. Omawiamy plan leczenia i dostępne opcje terapeutyczne.",
+        "icon": "👨‍⚕️"
+      },
+      {
+        "title": "Plan Leczenia",
+        "description": "Przedstawiamy szczegółową propozycję zabiegów z wycenę i harmonogramem wizyt. Odpowiadamy na wszystkie pytania.",
+        "icon": "📋"
+      },
+      {
+        "title": "Realizacja",
+        "description": "Przeprowadzamy zabiegi z użyciem nowoczesnego sprzętu i metod znieczulenia. Dbamy o Twój komfort i bezpieczeństwo.",
+        "icon": "✅"
+      }
+    ],
+    "image": "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=1600"
   },
   "cta": {
     "title": "Nie odkładaj wizyty u dentysty",

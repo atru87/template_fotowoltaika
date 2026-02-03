@@ -5,6 +5,16 @@
     "secondary": "#059669",
     "accent": "#fbbf24"
   },
+  "theme": {
+    "background": "#0a0f1a",
+    "backgroundGradient": "linear-gradient(160deg, #0a0f1a 0%, #0d2818 50%, #0d1117 100%)",
+    "cardBackground": "rgba(16, 185, 129, 0.08)",
+    "textPrimary": "#ffffff",
+    "textSecondary": "#d1d5db",
+    "glassBackground": "rgba(16, 185, 129, 0.06)",
+    "glowColor": "rgba(16, 185, 129, 0.13)",
+    "glowColorSecondary": "rgba(251, 191, 36, 0.09)"
+  },
   "hero": {
     "title": "Energia słoneczna dla Twojego domu",
     "subtitle": "Profesjonalne instalacje fotowoltaiczne z gwarancją oszczędności",
@@ -30,6 +40,28 @@
         "icon": "🔋"
       }
     ]
+  },
+  "process": {
+    "title": "Jak działamy?",
+    "subtitle": "Współpraca krok po kroku - od audytu do uruchomienia",
+    "steps": [
+      {
+        "title": "Analiza i Audyt",
+        "description": "Szczegółowy audyt energetyczny pozwala nam poznać Twoje zapotrzebowanie i określić realną opłacalność inwestycji.",
+        "icon": "📊"
+      },
+      {
+        "title": "Projekt i Umowa",
+        "description": "Przygotowujemy zoptymalizowany projekt techniczny oraz konstruujemy umowę dopasowaną do Twoich potrzeb.",
+        "icon": "📝"
+      },
+      {
+        "title": "Instalacja i Dotacje",
+        "description": "Nasi monterzy sprawnie uruchamiają system, a my pomagamy w formalnościach związanych z dofinansowaniem.",
+        "icon": "⚡"
+      }
+    ],
+    "image": "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=1600"
   },
   "cta": {
     "title": "Zaoszczędź nawet 90% na rachunkach za prąd",

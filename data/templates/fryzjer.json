@@ -5,6 +5,16 @@
     "secondary": "#7c3aed",
     "accent": "#fbbf24"
   },
+  "theme": {
+    "background": "#0f0f0f",
+    "backgroundGradient": "linear-gradient(160deg, #0f0f0f 0%, #1a1a1a 50%, #0a0a0a 100%)",
+    "cardBackground": "rgba(139, 92, 246, 0.08)",
+    "textPrimary": "#ffffff",
+    "textSecondary": "#d1d5db",
+    "glassBackground": "rgba(139, 92, 246, 0.06)",
+    "glowColor": "rgba(139, 92, 246, 0.15)",
+    "glowColorSecondary": "rgba(251, 191, 36, 0.1)"
+  },
   "hero": {
     "title": "Twój styl, nasza pasja",
     "subtitle": "Profesjonalna stylizacja męskich fryzur",
@@ -30,6 +40,28 @@
         "icon": "💆"
       }
     ]
+  },
+  "process": {
+    "title": "Jak to działa?",
+    "subtitle": "Prosty proces rezerwacji i obsługi",
+    "steps": [
+      {
+        "title": "Rezerwacja",
+        "description": "Zarezerwuj dogodny termin online lub telefonicznie. Wybierz swojego ulubionego barbera i preferowaną usługę.",
+        "icon": "📱"
+      },
+      {
+        "title": "Konsultacja",
+        "description": "Opowiedz nam o swoich oczekiwaniach. Doradzimy najlepsze rozwiązania dopasowane do kształtu Twojej twarzy i stylu życia.",
+        "icon": "💬"
+      },
+      {
+        "title": "Metamorfoza",
+        "description": "Ciesz się profesjonalnym strzyżeniem w relaksującej atmosferze. Użyjemy najlepszych produktów i technik.",
+        "icon": "✨"
+      }
+    ],
+    "image": "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=1600"
   },
   "cta": {
     "title": "Potrzebujesz zmiany?",

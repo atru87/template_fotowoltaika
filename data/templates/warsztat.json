@@ -5,6 +5,16 @@
     "secondary": "#ea580c",
     "accent": "#fbbf24"
   },
+  "theme": {
+    "background": "#1a0f0a",
+    "backgroundGradient": "linear-gradient(160deg, #1a0f0a 0%, #2a1810 50%, #1a0a0a 100%)",
+    "cardBackground": "rgba(249, 115, 22, 0.08)",
+    "textPrimary": "#ffffff",
+    "textSecondary": "#d1d5db",
+    "glassBackground": "rgba(249, 115, 22, 0.06)",
+    "glowColor": "rgba(249, 115, 22, 0.15)",
+    "glowColorSecondary": "rgba(251, 191, 36, 0.1)"
+  },
   "hero": {
     "title": "Twój samochód w dobrych rękach",
     "subtitle": "Kompleksowa obsługa i naprawy wszystkich marek",
@@ -30,6 +40,28 @@
         "icon": "🚗"
       }
     ]
+  },
+  "process": {
+    "title": "Jak działamy?",
+    "subtitle": "Profesjonalna obsługa w każdym kroku",
+    "steps": [
+      {
+        "title": "Diagnostyka",
+        "description": "Przyjmujemy pojazd i wykonujemy szczegółową diagnostykę. Sprawdzamy wszystkie układy komputerową i manualnie.",
+        "icon": "🔍"
+      },
+      {
+        "title": "Wycena i Zgoda",
+        "description": "Informujemy o wykrytych usterkach i przedstawiamy szczegółową wycenę naprawy. Czekamy na Twoją akceptację.",
+        "icon": "💰"
+      },
+      {
+        "title": "Naprawa i Odbiór",
+        "description": "Wykonujemy naprawę używając oryginalnych lub sprawdzonych części zamiennych. Po odbiorze otrzymujesz fakturę i gwarancję.",
+        "icon": "✅"
+      }
+    ],
+    "image": "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=1600"
   },
   "cta": {
     "title": "Problem z autem?",
