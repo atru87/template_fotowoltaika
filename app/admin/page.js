@@ -7,6 +7,7 @@ const tiles = [
   { href: '/admin/bot',         icon: '🤖', title: 'Bot / Triggery',   desc: 'Triggery i testy czatu' },
   { href: '/admin/firma',       icon: '🏢', title: 'Dane firmy',       desc: 'Informacje kontaktowe' },
   { href: '/admin/ustawienia',  icon: '⚙️', title: 'Ustawienia',       desc: 'AI key, SMTP, wiadomości' },
+  { href: '/admin/diagnostyka', icon: '🔧', title: 'Diagnostyka',      desc: 'Status Redis i migracja danych' },
   { href: '/',                  icon: '🌐', title: 'Zobaczyć stronę',  desc: 'Podgląd strony publicznej' },
 ];
 
