@@ -8,42 +8,11 @@ import Footer   from '@/components/ui/Footer';
 import ThemeStyles from '@/components/ui/ThemeStyles';
 import TemplateSwitcher from '@/components/ui/TemplateSwitcher';
 import { readTemplate, getGallery, getCompanyData } from '@/lib/dataManager';
-
-// ========================================
-// KONFIGURACJA SZABLONU
-// ========================================
-// template = 0  -> Pokazuje menu z możliwością zmiany szablonu
-// template = 1  -> Zawsze pokazuje szablon 1 (fotowoltaika)
-// template = 2  -> Zawsze pokazuje szablon 2 (fotowoltaika-v2)
-// template = 3  -> Zawsze pokazuje szablon 3 (fotowoltaika-v3)
-// template = 4  -> Zawsze pokazuje szablon 4 (fotowoltaika-v4)
-// template = 5  -> Zawsze pokazuje szablon 5 (fotowoltaika-v5)
-
-const TEMPLATE_MODE = 0;  // <-- ZMIEŃ TU: 0 = menu, 1-5 = konkretny szablon
-
-const templateMap = {
-  0: 'fotowoltaika',        // domyślny gdy menu
-  1: 'fotowoltaika',
-  2: 'fotowoltaika-v2',
-  3: 'fotowoltaika-v3',
-  4: 'fotowoltaika-v4',
-  5: 'fotowoltaika-v5'
-};
+import { getTemplateId, shouldShowSwitcher } from '@/config/template';
 
 export default async function HomePage({ searchParams }) {
-  // Logika wyboru szablonu
-  let templateId;
-  let showSwitcher = false;
-  
-  if (TEMPLATE_MODE === 0) {
-    // Tryb menu - użytkownik może przełączać szablony
-    templateId = searchParams?.template || templateMap[0];
-    showSwitcher = true;
-  } else {
-    // Tryb stały - zawsze ten sam szablon
-    templateId = templateMap[TEMPLATE_MODE] || templateMap[1];
-    showSwitcher = false;
-  }
+  const templateId = getTemplateId(searchParams);
+  const showSwitcher = shouldShowSwitcher();
   
   const template = await readTemplate(templateId);
   const gallery  = await getGallery();
@@ -67,12 +36,12 @@ export default async function HomePage({ searchParams }) {
       {/* Template switcher - tylko gdy TEMPLATE_MODE = 0 */}
       {showSwitcher && <TemplateSwitcher currentTemplate={templateId} />}
       
-      <Header companyName={company?.name} theme={theme} />
-      <Hero     key={`hero-${templateId}`} data={template.hero}     colors={template.colors} theme={theme} template={template} />
+      <Header companyName={company?.name} theme={theme} templateId={templateId} />
+      <Hero     key={`hero-${templateId}`} data={template.hero}     colors={template.colors} theme={theme} template={template} templateId={templateId} />
       <Services key={`services-${templateId}`} data={template.services} colors={template.colors} theme={theme} template={template} />
       <Process  key={`process-${templateId}`} data={template.process}  colors={template.colors} theme={theme} template={template} />
       <Gallery  items={gallery?.items || []} theme={theme} />
-      <CTA      data={template.cta}      colors={template.colors} theme={theme} company={company} />
+      <CTA      data={template.cta}      colors={template.colors} theme={theme} company={company} templateId={templateId} />
       <Footer   company={company} theme={theme} />
     </>
   );

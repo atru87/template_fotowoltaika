@@ -1,11 +1,8 @@
 'use client';
 import useReveal from '@/components/ui/useReveal';
-import { useSearchParams } from 'next/navigation';
 
-export default function CTA({ data, colors, company, theme }) {
+export default function CTA({ data, colors, company, theme, templateId = 'fotowoltaika' }) {
   const ref = useReveal(0.15);
-  const searchParams = useSearchParams();
-  const templateId = searchParams?.get('template') || 'fotowoltaika';
   
   if (!data) return null;
 

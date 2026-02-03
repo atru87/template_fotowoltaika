@@ -1,12 +1,9 @@
 'use client';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
 
-export default function Header({ companyName, theme }) {
+export default function Header({ companyName, theme, templateId = 'fotowoltaika' }) {
   const [scrolled, setScrolled] = useState(false);
-  const searchParams = useSearchParams();
-  const templateId = searchParams?.get('template') || 'fotowoltaika';
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 48);

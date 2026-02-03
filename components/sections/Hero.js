@@ -1,11 +1,8 @@
 'use client';
 import useReveal from '@/components/ui/useReveal';
-import { useSearchParams } from 'next/navigation';
 
-export default function Hero({ data, colors, theme, template }) {
+export default function Hero({ data, colors, theme, template, templateId = 'fotowoltaika' }) {
   const ref = useReveal(0.1);
-  const searchParams = useSearchParams();
-  const templateId = searchParams?.get('template') || 'fotowoltaika';
   
   if (!data) return null;
 

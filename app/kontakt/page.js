@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import Header from '@/components/ui/Header';
 import Footer from '@/components/ui/Footer';
 import ThemeStyles from '@/components/ui/ThemeStyles';
+import { getTemplateId } from '@/config/template';
 
 export default function KontaktPage() {
   const [form, setForm]     = useState({ name: '', email: '', phone: '', message: '' });
@@ -15,8 +16,8 @@ export default function KontaktPage() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    // Get template from URL or use default
-    const templateId = searchParams?.get('template') || 'fotowoltaika';
+    // Get template based on TEMPLATE_MODE config
+    const templateId = getTemplateId(searchParams);
     
     // Load template data
     Promise.all([
@@ -57,6 +58,7 @@ export default function KontaktPage() {
 
   const primaryColor = colors?.primary || '#10b981';
   const isLightTheme = theme?.textPrimary === '#111827';
+  const templateId = getTemplateId(searchParams);
   
   const input = `w-full px-4 py-3 rounded-xl ${
     isLightTheme 
@@ -68,7 +70,7 @@ export default function KontaktPage() {
     <>
       {theme && colors && <ThemeStyles theme={theme} colors={colors} />}
       
-      <Header companyName={company?.name} theme={theme} />
+      <Header companyName={company?.name} theme={theme} templateId={templateId} />
       <main className="min-h-screen flex items-start justify-center py-24 px-4">
         <div className="w-full max-w-2xl">
           <div className="text-center mb-10">
