@@ -1,53 +1,44 @@
 // app/api/admin/diagnostics/route.js
-// Endpoint diagnostyczny dla KV - sprawdza stan Redis
+// Endpoint diagnostyczny dla Redis
 
 import { NextResponse } from 'next/server';
-import { kv } from '@vercel/kv';
+import { redis } from '@/lib/redis';
 import { migrateToKV } from '@/lib/dataManager';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const action = searchParams.get('action');
   
-  // Sprawdź oba możliwe typy zmiennych środowiskowych
-  const kvConfigured = !!(process.env.KV_REST_API_URL || process.env.REDIS_URL);
+  // Sprawdź czy Redis jest skonfigurowany
+  const redisConfigured = !!process.env.REDIS_URL;
   
   const diagnostics = {
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV,
-    kvConfigured: kvConfigured,
-    kvUrl: process.env.KV_REST_API_URL ? 'KV_REST_API_URL configured ✅' : 
-           process.env.REDIS_URL ? 'REDIS_URL configured ✅' : 
-           'not configured ❌',
-    // Pokaż które zmienne są dostępne (bez pokazywania wartości)
-    availableVars: {
-      KV_REST_API_URL: !!process.env.KV_REST_API_URL,
-      KV_REST_API_TOKEN: !!process.env.KV_REST_API_TOKEN,
-      KV_URL: !!process.env.KV_URL,
-      REDIS_URL: !!process.env.REDIS_URL,
-    }
+    redisConfigured: redisConfigured,
+    redisUrl: process.env.REDIS_URL ? 'REDIS_URL configured ✅' : 'not configured ❌',
   };
   
   try {
-    // Test połączenia z KV
-    if (kvConfigured) {
+    // Test połączenia z Redis
+    if (redisConfigured) {
       try {
-        await kv.ping();
-        diagnostics.kvConnection = 'OK ✅';
+        await redis.ping();
+        diagnostics.redisConnection = 'OK ✅';
       } catch (error) {
-        diagnostics.kvConnection = `ERROR: ${error.message} ❌`;
+        diagnostics.redisConnection = `ERROR: ${error.message} ❌`;
       }
       
-      // Sprawdź jakie klucze są w KV
+      // Sprawdź jakie klucze są w Redis
       try {
-        const keys = await kv.keys('*');
-        diagnostics.kvKeys = keys;
-        diagnostics.kvKeysCount = keys.length;
+        const keys = await redis.keys('*');
+        diagnostics.redisKeys = keys;
+        diagnostics.redisKeysCount = keys.length;
       } catch (error) {
-        diagnostics.kvKeysError = error.message;
+        diagnostics.redisKeysError = error.message;
       }
       
-      // Sprawdź konkretne dane w KV
+      // Sprawdź konkretne dane w Redis
       const dataKeys = [
         'gallery', 
         'company', 
@@ -62,39 +53,39 @@ export async function GET(request) {
         'templates:fotowoltaika-v4',
         'templates:fotowoltaika-v5',
       ];
-      diagnostics.kvData = {};
+      diagnostics.redisData = {};
       
       for (const key of dataKeys) {
         try {
-          const data = await kv.get(key);
-          diagnostics.kvData[key] = data ? 'exists ✅' : 'missing ❌';
+          const data = await redis.get(key);
+          diagnostics.redisData[key] = data ? 'exists ✅' : 'missing ❌';
         } catch (error) {
-          diagnostics.kvData[key] = `error: ${error.message} ❌`;
+          diagnostics.redisData[key] = `error: ${error.message} ❌`;
         }
       }
     } else {
-      diagnostics.kvConnection = 'KV not configured ❌';
-      diagnostics.warning = 'Bez KV nie można zapisywać danych na Vercel (filesystem jest read-only)';
+      diagnostics.redisConnection = 'Redis not configured ❌';
+      diagnostics.warning = 'Bez Redis nie można zapisywać danych na Vercel (filesystem jest read-only)';
     }
     
-    // Akcja: migracja danych do KV
-    if (action === 'migrate' && kvConfigured) {
+    // Akcja: migracja danych do Redis
+    if (action === 'migrate' && redisConfigured) {
       try {
         await migrateToKV();
-        diagnostics.migration = { status: 'completed ✅', message: 'Wszystkie dane zmigrowane do KV' };
+        diagnostics.migration = { status: 'completed ✅', message: 'Wszystkie dane zmigrowane do Redis' };
       } catch (error) {
         diagnostics.migration = { status: 'failed ❌', error: error.message };
       }
     }
     
-    // Akcja: reset KV (usuń wszystkie klucze)
-    if (action === 'reset' && kvConfigured) {
+    // Akcja: reset Redis (usuń wszystkie klucze)
+    if (action === 'reset' && redisConfigured) {
       diagnostics.reset = {};
       
       try {
-        const keys = await kv.keys('*');
+        const keys = await redis.keys('*');
         for (const key of keys) {
-          await kv.del(key);
+          await redis.del(key);
         }
         diagnostics.reset.deleted = keys;
         diagnostics.reset.count = keys.length;
