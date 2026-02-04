@@ -9,16 +9,28 @@ export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const action = searchParams.get('action');
   
+  // Sprawdź oba możliwe typy zmiennych środowiskowych
+  const kvConfigured = !!(process.env.KV_REST_API_URL || process.env.REDIS_URL);
+  
   const diagnostics = {
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV,
-    kvConfigured: !!process.env.KV_REST_API_URL,
-    kvUrl: process.env.KV_REST_API_URL ? 'configured ✅' : 'not configured ❌',
+    kvConfigured: kvConfigured,
+    kvUrl: process.env.KV_REST_API_URL ? 'KV_REST_API_URL configured ✅' : 
+           process.env.REDIS_URL ? 'REDIS_URL configured ✅' : 
+           'not configured ❌',
+    // Pokaż które zmienne są dostępne (bez pokazywania wartości)
+    availableVars: {
+      KV_REST_API_URL: !!process.env.KV_REST_API_URL,
+      KV_REST_API_TOKEN: !!process.env.KV_REST_API_TOKEN,
+      KV_URL: !!process.env.KV_URL,
+      REDIS_URL: !!process.env.REDIS_URL,
+    }
   };
   
   try {
     // Test połączenia z KV
-    if (process.env.KV_REST_API_URL) {
+    if (kvConfigured) {
       try {
         await kv.ping();
         diagnostics.kvConnection = 'OK ✅';
@@ -66,7 +78,7 @@ export async function GET(request) {
     }
     
     // Akcja: migracja danych do KV
-    if (action === 'migrate' && process.env.KV_REST_API_URL) {
+    if (action === 'migrate' && kvConfigured) {
       try {
         await migrateToKV();
         diagnostics.migration = { status: 'completed ✅', message: 'Wszystkie dane zmigrowane do KV' };
@@ -76,7 +88,7 @@ export async function GET(request) {
     }
     
     // Akcja: reset KV (usuń wszystkie klucze)
-    if (action === 'reset' && process.env.KV_REST_API_URL) {
+    if (action === 'reset' && kvConfigured) {
       diagnostics.reset = {};
       
       try {
