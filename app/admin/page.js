@@ -8,7 +8,7 @@ const tiles = [
   { href: '/admin/firma',       icon: '🏢', title: 'Dane firmy',       desc: 'Informacje kontaktowe' },
   { href: '/admin/ustawienia',  icon: '⚙️', title: 'Ustawienia',       desc: 'AI key, SMTP, wiadomości' },
   { href: '/admin/diagnostyka', icon: '🔧', title: 'Diagnostyka',      desc: 'Status Redis i migracja danych' },
-  { href: '/',                  icon: '🌐', title: 'Zobaczyć stronę',  desc: 'Podgląd strony publicznej' },
+  { href: '/',                  icon: '🌐', title: 'Powrót',  desc: 'Wróć na stronę główną' },
 ];
 
 export default function AdminDashboard() {
