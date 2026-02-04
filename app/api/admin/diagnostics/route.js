@@ -1,12 +1,9 @@
 // app/api/admin/diagnostics/route.js
-// Endpoint diagnostyczny dla KV - sprawdza stan Redis i danych
+// Endpoint diagnostyczny dla KV - sprawdza stan Redis
 
 import { NextResponse } from 'next/server';
 import { kv } from '@vercel/kv';
-import fs from 'fs';
-import path from 'path';
-
-const DATA_DIR = path.join(process.cwd(), 'data');
+import { migrateToKV } from '@/lib/dataManager';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -16,7 +13,7 @@ export async function GET(request) {
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV,
     kvConfigured: !!process.env.KV_REST_API_URL,
-    kvUrl: process.env.KV_REST_API_URL ? 'configured' : 'not configured',
+    kvUrl: process.env.KV_REST_API_URL ? 'configured ✅' : 'not configured ❌',
   };
   
   try {
@@ -64,68 +61,17 @@ export async function GET(request) {
         }
       }
     } else {
-      diagnostics.kvConnection = 'KV not configured';
-    }
-    
-    // Sprawdź pliki w /data
-    diagnostics.dataFiles = {};
-    const dataFiles = [
-      'gallery.json', 
-      'company.json', 
-      'bot-config.json', 
-      'triggers.json', 
-      'auth.json',
-      'messages.json',
-      'smtp.json',
-      'templates/fotowoltaika.json',
-      'templates/fotowoltaika-v2.json',
-      'templates/fotowoltaika-v3.json',
-      'templates/fotowoltaika-v4.json',
-      'templates/fotowoltaika-v5.json',
-    ];
-    
-    for (const filename of dataFiles) {
-      const filePath = path.join(DATA_DIR, filename);
-      try {
-        if (fs.existsSync(filePath)) {
-          const stats = fs.statSync(filePath);
-          const content = fs.readFileSync(filePath, 'utf-8');
-          const json = JSON.parse(content);
-          diagnostics.dataFiles[filename] = {
-            exists: true,
-            size: stats.size,
-            modified: stats.mtime,
-            itemCount: Array.isArray(json.items) ? json.items.length : 'N/A'
-          };
-        } else {
-          diagnostics.dataFiles[filename] = { exists: false };
-        }
-      } catch (error) {
-        diagnostics.dataFiles[filename] = { error: error.message };
-      }
+      diagnostics.kvConnection = 'KV not configured ❌';
+      diagnostics.warning = 'Bez KV nie można zapisywać danych na Vercel (filesystem jest read-only)';
     }
     
     // Akcja: migracja danych do KV
     if (action === 'migrate' && process.env.KV_REST_API_URL) {
-      diagnostics.migration = {};
-      
-      for (const filename of dataFiles) {
-        const filePath = path.join(DATA_DIR, filename);
-        // Użyj tej samej konwersji co w dataManager
-        const key = filename.replace('.json', '').replace(/\//g, ':');
-        
-        try {
-          if (fs.existsSync(filePath)) {
-            const content = fs.readFileSync(filePath, 'utf-8');
-            const json = JSON.parse(content);
-            await kv.set(key, json);
-            diagnostics.migration[key] = 'migrated ✅';
-          } else {
-            diagnostics.migration[key] = 'file not found ⚠️';
-          }
-        } catch (error) {
-          diagnostics.migration[key] = `error: ${error.message} ❌`;
-        }
+      try {
+        await migrateToKV();
+        diagnostics.migration = { status: 'completed ✅', message: 'Wszystkie dane zmigrowane do KV' };
+      } catch (error) {
+        diagnostics.migration = { status: 'failed ❌', error: error.message };
       }
     }
     
@@ -140,8 +86,10 @@ export async function GET(request) {
         }
         diagnostics.reset.deleted = keys;
         diagnostics.reset.count = keys.length;
+        diagnostics.reset.status = 'completed ✅';
       } catch (error) {
         diagnostics.reset.error = error.message;
+        diagnostics.reset.status = 'failed ❌';
       }
     }
     
@@ -152,7 +100,7 @@ export async function GET(request) {
       { 
         error: 'Diagnostics failed',
         message: error.message,
-        stack: error.stack 
+        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
       },
       { status: 500 }
     );
