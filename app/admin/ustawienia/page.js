@@ -9,6 +9,7 @@ export default function UstawieniaAdmin() {
   const [saving,   setSaving]   = useState(false);
   const [savingSmtp, setSavingSmtp] = useState(false);
   const [loaded,   setLoaded]   = useState(false);
+  const [clearingCache, setClearingCache] = useState(false);
 
   useEffect(() => { load(); }, []);
 
@@ -25,6 +26,33 @@ export default function UstawieniaAdmin() {
       setMessages(mD?.items || []);
     } catch (e) { console.error(e); }
     finally { setLoaded(true); }
+  };
+
+  const clearCache = async () => {
+    if (!confirm('Czy na pewno chcesz wyczyścić cache? Spowoduje to przeładowanie wszystkich danych ze statycznych plików.')) {
+      return;
+    }
+    
+    setClearingCache(true);
+    try {
+      const response = await fetch('/api/admin/clear-cache', {
+        method: 'POST',
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        alert('✅ Cache wyczyszczony pomyślnie! ' + data.message);
+        // Przeładuj dane
+        await load();
+      } else {
+        alert('⚠️ ' + data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      alert('❌ Błąd czyszczenia cache');
+    } finally {
+      setClearingCache(false);
+    }
   };
 
   const saveBot = async (e) => {
@@ -112,7 +140,14 @@ export default function UstawieniaAdmin() {
               className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition text-sm disabled:opacity-50">
               {saving ? 'Zapisywanie…' : 'Zapisz'}
             </button>
+            <button type="button" onClick={clearCache} disabled={clearingCache}
+              className="bg-orange-600 text-white px-5 py-2 rounded-lg hover:bg-orange-700 transition text-sm disabled:opacity-50 ml-2">
+              {clearingCache ? 'Czyszczenie…' : '🗑️ Wyczyść cache Redis'}
+            </button>
           </form>
+          <p className="text-xs text-gray-500 mt-3">
+            💡 Po zmianie konfiguracji w plikach, kliknij "Wyczyść cache" aby wymusić przeładowanie danych.
+          </p>
         </div>
 
         {/* ──── SMTP KONFIGURACJA ──── */}
