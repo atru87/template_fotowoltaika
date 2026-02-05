@@ -3,10 +3,8 @@ import { useState, useEffect } from 'react';
 import ProtectedRoute from '@/components/admin/ProtectedRoute';
 
 export default function UstawieniaAdmin() {
-  const [bot,      setBot]      = useState({ apiKey: '', systemPrompt: '' });
   const [smtp,     setSmtp]     = useState({ host: '', port: '587', user: '', pass: '', configured: false });
   const [messages, setMessages] = useState([]);
-  const [saving,   setSaving]   = useState(false);
   const [savingSmtp, setSavingSmtp] = useState(false);
   const [loaded,   setLoaded]   = useState(false);
   const [clearingCache, setClearingCache] = useState(false);
@@ -15,12 +13,10 @@ export default function UstawieniaAdmin() {
 
   const load = async () => {
     try {
-      const [bR, sR, mR] = await Promise.all([
-        fetch('/api/config?type=bot'),
+      const [sR, mR] = await Promise.all([
         fetch('/api/config?type=smtp'),
         fetch('/api/config?type=messages'),
       ]);
-      setBot(await bR.json());
       setSmtp(await sR.json());
       const mD = await mR.json();
       setMessages(mD?.items || []);
@@ -53,21 +49,6 @@ export default function UstawieniaAdmin() {
     } finally {
       setClearingCache(false);
     }
-  };
-
-  const saveBot = async (e) => {
-    e.preventDefault();
-    setSaving(true);
-    try {
-      const r = await fetch('/api/config', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'bot', data: bot }),
-      });
-      if (r.ok) alert('Konfiguracja bota zapisana ✅');
-      else alert('Błąd zapisu');
-    } catch { alert('Błąd'); }
-    finally { setSaving(false); }
   };
 
   const saveSmtp = async (e) => {
@@ -117,37 +98,23 @@ export default function UstawieniaAdmin() {
       <div className="container mx-auto px-4 py-10 max-w-4xl">
         <h1 className="text-3xl font-bold mb-8 text-gray-900">⚙️ Ustawienia</h1>
 
-        {/* ──── BOT AI ──── */}
-        <div className="bg-white p-6 rounded-xl shadow-md mb-6">
-          <h2 className="text-xl font-semibold mb-1 text-gray-900">🤖 Bot AI</h2>
-          <p className="text-gray-600 text-sm mb-4">
-            Klucz API z <a href="https://console.groq.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">console.groq.com</a> · model: <code className="text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">llama-3.1-70b-versatile</code>
-          </p>
-
-          <form onSubmit={saveBot} className="space-y-3">
+        {/* ──── CACHE MANAGEMENT ──── */}
+        <div className="bg-blue-50 border border-blue-200 p-4 rounded-xl mb-6">
+          <div className="flex items-start justify-between">
             <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">API Key (Groq)</label>
-              <input type="password" className={inp} placeholder="gsk_…"
-                value={bot.apiKey} onChange={e => setBot({ ...bot, apiKey: e.target.value })} />
+              <h3 className="font-semibold text-blue-900 mb-1">🗑️ Zarządzanie cache</h3>
+              <p className="text-sm text-blue-700">
+                Jeśli edytujesz pliki konfiguracyjne bezpośrednio (np. bot-config.json), kliknij przycisk aby wymusić przeładowanie danych z plików.
+              </p>
             </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-700 mb-1">Prompt systemowy</label>
-              <textarea className={`${inp} resize-none`} rows={3}
-                placeholder="Jesteś pomocnym asystentem firmy…"
-                value={bot.systemPrompt} onChange={e => setBot({ ...bot, systemPrompt: e.target.value })} />
-            </div>
-            <button type="submit" disabled={saving}
-              className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition text-sm disabled:opacity-50">
-              {saving ? 'Zapisywanie…' : 'Zapisz'}
+            <button 
+              type="button" 
+              onClick={clearCache} 
+              disabled={clearingCache}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm disabled:opacity-50 whitespace-nowrap ml-4">
+              {clearingCache ? 'Czyszczenie…' : 'Wyczyść cache'}
             </button>
-            <button type="button" onClick={clearCache} disabled={clearingCache}
-              className="bg-orange-600 text-white px-5 py-2 rounded-lg hover:bg-orange-700 transition text-sm disabled:opacity-50 ml-2">
-              {clearingCache ? 'Czyszczenie…' : '🗑️ Wyczyść cache Redis'}
-            </button>
-          </form>
-          <p className="text-xs text-gray-500 mt-3">
-            💡 Po zmianie konfiguracji w plikach, kliknij "Wyczyść cache" aby wymusić przeładowanie danych.
-          </p>
+          </div>
         </div>
 
         {/* ──── SMTP KONFIGURACJA ──── */}

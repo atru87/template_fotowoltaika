@@ -11,6 +11,7 @@ export default function BotAdmin() {
   const [triggers, setTriggers] = useState([]);
   const [newTrigger, setNewTrigger] = useState({ trigger: '', response: '' });
   const [isLoading, setIsLoading] = useState(false);
+  const [clearingCache, setClearingCache] = useState(false);
   
   // Wczytaj dane
   useEffect(() => {
@@ -31,6 +32,33 @@ export default function BotAdmin() {
       setTriggers(triggersData.triggers || []);
     } catch (error) {
       console.error('Error fetching data:', error);
+    }
+  };
+  
+  // Wyczyść cache
+  const clearCache = async () => {
+    if (!confirm('Czy na pewno chcesz wyczyścić cache? Spowoduje to przeładowanie danych z plików.')) {
+      return;
+    }
+    
+    setClearingCache(true);
+    try {
+      const response = await fetch('/api/admin/clear-cache', {
+        method: 'POST',
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        alert('✅ Cache wyczyszczony! ' + data.message);
+        await fetchData(); // Przeładuj dane
+      } else {
+        alert('⚠️ ' + data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      alert('❌ Błąd czyszczenia cache');
+    } finally {
+      setClearingCache(false);
     }
   };
   
@@ -157,13 +185,28 @@ export default function BotAdmin() {
               </p>
             </div>
             
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400"
-            >
-              {isLoading ? 'Zapisywanie...' : 'Zapisz konfigurację'}
-            </button>
+            <div className="flex gap-3">
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400"
+              >
+                {isLoading ? 'Zapisywanie...' : 'Zapisz konfigurację'}
+              </button>
+              
+              <button
+                type="button"
+                onClick={clearCache}
+                disabled={clearingCache}
+                className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition disabled:bg-gray-400"
+              >
+                {clearingCache ? 'Czyszczenie...' : '🗑️ Wyczyść cache'}
+              </button>
+            </div>
+            
+            <p className="text-xs text-gray-500 mt-2">
+              💡 Po zapisaniu konfiguracji kliknij "Wyczyść cache" aby zmiany były od razu widoczne.
+            </p>
           </form>
         </div>
         

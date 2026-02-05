@@ -4,14 +4,20 @@
 import { NextResponse } from 'next/server';
 import { redis } from '@/lib/redis';
 
+const IS_DEV = process.env.NODE_ENV === 'development';
+
 export async function POST(request) {
   try {
     // Sprawdź czy Redis jest dostępny
     if (!process.env.REDIS_URL) {
       return NextResponse.json(
         { 
-          success: false,
-          message: 'Redis nie jest skonfigurowany - używane są statyczne pliki, cache nie wymaga czyszczenia' 
+          success: true,
+          message: IS_DEV 
+            ? 'Tryb DEV: Dane zapisywane bezpośrednio do plików - cache nie wymaga czyszczenia' 
+            : 'Redis nie jest skonfigurowany - używane są statyczne pliki, cache nie wymaga czyszczenia',
+          environment: IS_DEV ? 'development' : 'production',
+          redis_enabled: false
         },
         { status: 200 }
       );
@@ -69,7 +75,10 @@ export async function GET(request) {
     if (!process.env.REDIS_URL) {
       return NextResponse.json({
         redis_enabled: false,
-        message: 'Redis nie jest skonfigurowany'
+        environment: IS_DEV ? 'development' : 'production',
+        message: IS_DEV 
+          ? 'Tryb DEV: Zmiany zapisywane bezpośrednio do plików w /data'
+          : 'Redis nie jest skonfigurowany'
       });
     }
 
@@ -93,6 +102,7 @@ export async function GET(request) {
 
     return NextResponse.json({
       redis_enabled: true,
+      environment: IS_DEV ? 'development' : 'production',
       cache_status: status
     });
 
