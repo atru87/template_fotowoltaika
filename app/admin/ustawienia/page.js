@@ -98,24 +98,6 @@ export default function UstawieniaAdmin() {
       <div className="container mx-auto px-4 py-10 max-w-4xl">
         <h1 className="text-3xl font-bold mb-8 text-gray-900">⚙️ Ustawienia</h1>
 
-        {/* ──── CACHE MANAGEMENT ──── */}
-        <div className="bg-blue-50 border border-blue-200 p-4 rounded-xl mb-6">
-          <div className="flex items-start justify-between">
-            <div>
-              <h3 className="font-semibold text-blue-900 mb-1">🗑️ Zarządzanie cache</h3>
-              <p className="text-sm text-blue-700">
-                Jeśli edytujesz pliki konfiguracyjne bezpośrednio (np. bot-config.json), kliknij przycisk aby wymusić przeładowanie danych z plików.
-              </p>
-            </div>
-            <button 
-              type="button" 
-              onClick={clearCache} 
-              disabled={clearingCache}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm disabled:opacity-50 whitespace-nowrap ml-4">
-              {clearingCache ? 'Czyszczenie…' : 'Wyczyść cache'}
-            </button>
-          </div>
-        </div>
 
         {/* ──── SMTP KONFIGURACJA ──── */}
         <div className="bg-white p-6 rounded-xl shadow-md mb-6">

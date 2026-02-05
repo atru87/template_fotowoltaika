@@ -219,11 +219,6 @@ export default function BotAdmin() {
               </button>
             </div>
             
-            <p className="text-xs text-gray-500 mt-2">
-              💡 <strong>Dla Vercel/produkcji:</strong> Klucz zapisuje się bezpośrednio do Redis i działa od razu. Nie musisz czyścić cache!
-              <br/>
-              <strong>Dla dev:</strong> Klucz zapisuje się do pliku data/bot-config.json
-            </p>
           </form>
         </div>
         
