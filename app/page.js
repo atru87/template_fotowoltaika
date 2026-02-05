@@ -10,6 +10,9 @@ import TemplateSwitcher from '@/components/ui/TemplateSwitcher';
 import { readTemplate, getGallery, getCompanyData } from '@/lib/dataManager';
 import { getTemplateId, shouldShowSwitcher } from '@/config/template';
 
+// Wyłącz cache - dane mogą się zmieniać dynamicznie z panelu admina
+export const dynamic = 'force-dynamic';
+
 export default async function HomePage({ searchParams }) {
   const templateId = getTemplateId(searchParams);
   const showSwitcher = shouldShowSwitcher();

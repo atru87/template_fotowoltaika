@@ -5,6 +5,9 @@ import ContactForm from '@/components/sections/ContactForm';
 import { readTemplate, getCompanyData } from '@/lib/dataManager';
 import { getTemplateId } from '@/config/template';
 
+// Wyłącz cache - dane mogą się zmieniać dynamicznie z panelu admina
+export const dynamic = 'force-dynamic';
+
 export default async function KontaktPage({ searchParams }) {
   const templateId = getTemplateId(searchParams);
   const template = await readTemplate(templateId);

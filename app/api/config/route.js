@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import {
   getCompanyData,  updateCompanyData,
   getBotConfig,    updateBotConfig,
@@ -45,7 +46,14 @@ export async function POST(request) {
     const { type, data } = await request.json();
     let ok;
     switch (type) {
-      case 'company':  ok = await updateCompanyData(data); break;
+      case 'company':  
+        ok = await updateCompanyData(data); 
+        // Rewaliduj strony które używają danych firmy
+        if (ok) {
+          revalidatePath('/');
+          revalidatePath('/kontakt');
+        }
+        break;
       case 'bot':      ok = await updateBotConfig(data);   break;
       case 'triggers': ok = await updateTriggers(data);    break;
       case 'messages': ok = await writeJSON('messages.json', data); break;
