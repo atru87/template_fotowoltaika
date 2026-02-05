@@ -75,7 +75,22 @@ export default function BotAdmin() {
       });
       
       if (response.ok) {
-        alert('Konfiguracja bota zapisana!');
+        // Dodatkowo zapisz bezpośrednio do Redis (obejście problemu Vercel)
+        try {
+          await fetch('/api/admin/set-redis-key', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              key: 'bot-config', 
+              value: botConfig 
+            })
+          });
+          console.log('✅ Zapisano również bezpośrednio do Redis');
+        } catch (redisError) {
+          console.log('⚠️ Redis direct save failed, but config saved:', redisError);
+        }
+        
+        alert('✅ Konfiguracja bota zapisana! Zmiany będą widoczne natychmiast.');
       }
     } catch (error) {
       alert('Błąd zapisu');
@@ -205,7 +220,9 @@ export default function BotAdmin() {
             </div>
             
             <p className="text-xs text-gray-500 mt-2">
-              💡 Po zapisaniu konfiguracji kliknij "Wyczyść cache" aby zmiany były od razu widoczne.
+              💡 <strong>Dla Vercel/produkcji:</strong> Klucz zapisuje się bezpośrednio do Redis i działa od razu. Nie musisz czyścić cache!
+              <br/>
+              <strong>Dla dev:</strong> Klucz zapisuje się do pliku data/bot-config.json
             </p>
           </form>
         </div>
